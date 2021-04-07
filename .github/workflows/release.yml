@@ -1,0 +1,33 @@
+name: Publish package to the Maven Central Repository and GitHub Packages
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Install gpg signing key
+        run: |
+          cat <(echo -e "${{ secrets.GPG_SIGNING_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
+          echo "${{ secrets.GPG_SIGNING_PASSWORD }}" | gpg --batch --pinentry-mode loopback --passphrase-fd 0 --keyring secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg
+      - name: Configure Gradle GPG properties
+        run: |
+          mkdir ~/.gradle
+          echo "signing.keyId=${{ secrets.GPG_SIGNING_KEY_ID }}" >> ~/.gradle/gradle.properties
+          echo "signing.password=${{ secrets.GPG_SIGNING_PASSWORD }}" >> ~/.gradle/gradle.properties
+          echo "signing.secretKeyRingFile=$HOME/.gnupg/secring.gpg" >> ~/.gradle/gradle.properties
+      - name: Publish to the Maven Central Repository
+        run: gradle publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+          GPG_SIGNING_PASSWORD: ${{ secrets.GPG_SIGNING_PASSWORD }}
