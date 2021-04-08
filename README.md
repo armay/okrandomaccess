@@ -32,9 +32,9 @@ Usage
 
 Creating a random access sink/source is done similarly to Okio's `source()`/`sink()` API:
 ```kotlin
-import com.github.armay.okrandomaccess.OkRandomAccess.buffer
-import com.github.armay.okrandomaccess.OkRandomAccess.randomAccessSink
-import com.github.armay.okrandomaccess.OkRandomAccess.randomAccessSource
+import com.github.armay.okrandomaccess.buffer
+import com.github.armay.okrandomaccess.randomAccessSink
+import com.github.armay.okrandomaccess.randomAccessSource
 
 /* Other imports & code */
 
