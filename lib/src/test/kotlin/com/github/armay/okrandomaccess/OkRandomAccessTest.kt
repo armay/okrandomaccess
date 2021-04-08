@@ -1,8 +1,6 @@
 package com.github.armay.okrandomaccess
 
-import com.github.armay.okrandomaccess.OkRandomAccess.buffer
-import com.github.armay.okrandomaccess.OkRandomAccess.randomAccessSink
-import com.github.armay.okrandomaccess.OkRandomAccess.randomAccessSource
+import com.github.armay.okrandomaccess.buffer
 import com.google.common.jimfs.Configuration.unix
 import com.google.common.jimfs.Jimfs.newFileSystem
 import okio.buffer
