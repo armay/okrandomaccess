@@ -1,5 +1,5 @@
 group = "com.github.armay"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 plugins {
     val dokkaVersion = "1.4.30"
