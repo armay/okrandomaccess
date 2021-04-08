@@ -12,19 +12,21 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Install gpg signing key
+      - name: Install GPG signing key
         run: |
           cat <(echo -e "${{ secrets.GPG_SIGNING_KEY }}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
           echo "${{ secrets.GPG_SIGNING_PASSWORD }}" | gpg --batch --pinentry-mode loopback --passphrase-fd 0 --keyring secring.gpg --export-secret-keys > ~/.gnupg/secring.gpg
-      - name: Configure Gradle GPG properties
+      - name: Configure Gradle signing properties
         run: |
           mkdir ~/.gradle
           echo "signing.keyId=${{ secrets.GPG_SIGNING_KEY_ID }}" >> ~/.gradle/gradle.properties
           echo "signing.password=${{ secrets.GPG_SIGNING_PASSWORD }}" >> ~/.gradle/gradle.properties
           echo "signing.secretKeyRingFile=$HOME/.gnupg/secring.gpg" >> ~/.gradle/gradle.properties
-      - name: Publish to the Maven Central Repository
-        run: gradle publish
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Publish with Gradle
+        run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
