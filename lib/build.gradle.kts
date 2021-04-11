@@ -1,5 +1,5 @@
 group = "com.github.armay"
-version = "0.0.1"
+version = "0.0.2-SNAPSHOT"
 
 plugins {
     val dokkaVersion = "1.4.30"
@@ -88,10 +88,16 @@ tasks {
         dependsOn(dokkaHtml)
         from(dokkaHtml)
     }
+    compileJava {
+        options.release.set(8)
+    }
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }
 
 dependencies {
-    val jimfsVersion = "1.2"
+    val jimfsVersion = "1.1"
     val okioVersion = "2.10.0"
     api("com.squareup.okio:okio:$okioVersion")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
