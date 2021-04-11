@@ -10,8 +10,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          java-version: '8'
+          distribution: 'zulu'
       - name: Install GPG signing key
         run: |
           cat <(echo -e "${{ secrets.GPG_SIGNING_KEY }}") | gpg --batch --import
