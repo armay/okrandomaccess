@@ -4,6 +4,5 @@ include("lib")
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
-        jcenter()
     }
 }
