@@ -1,9 +1,9 @@
 group = "com.github.armay"
-version = "0.0.2"
+version = "0.1.0"
 
 plugins {
-    val dokkaVersion = "1.4.30"
-    val kotlinVersion = "1.4.32"
+    val dokkaVersion = "1.4.32"
+    val kotlinVersion = "1.5.0"
     kotlin("jvm") version kotlinVersion
     id("org.jetbrains.dokka") version dokkaVersion
     `java-library`
